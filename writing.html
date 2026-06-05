@@ -189,16 +189,18 @@
       font-size: clamp(0.9rem, 1.5vw, 1rem);
       line-height: 2; color: rgba(232,213,183,0.85);
       font-style: italic; position: relative;
-      max-height: 420px; overflow: hidden;
+      max-height: 520px; overflow-y: auto; padding-right: 1rem; scrollbar-width: thin; scrollbar-color: var(--sand) rgba(196,168,130,0.1);
     }
     .excerpt-text p { margin-bottom: 1.2rem; }
     .excerpt-text p:last-child { margin-bottom: 0; }
-
+    .excerpt-text::-webkit-scrollbar { width: 4px; }
+    .excerpt-text::-webkit-scrollbar-track { background: rgba(196,168,130,0.08); border-radius: 2px; }
+    .excerpt-text::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
     /* fade out bottom of excerpt */
     .excerpt-fade {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--char));
-      pointer-events: none;
+  position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--char));
+  pointer-events: none;
     }
     .excerpt-footer {
       margin-top: 1.5rem; display: flex; justify-content: space-between;
