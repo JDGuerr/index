@@ -21,7 +21,9 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--char); }
     ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
-
+@media (max-width: 768px) {
+  .world-continent-grid { grid-template-columns: 1fr !important; }
+}
     /* NAV */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
