@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing — JD Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #C4A882; --sand-lt: #E8D5B7; --sand-dk: #9C7E52;
+      --white: #FFFFFF; --cream: #F8F5F0;
+      --char: #1A1917; --char2: #252320;
+      --txt: #1A1917; --txt2: #5A5750; --txt3: #8A857D;
+      --border: rgba(196,168,130,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--char); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; color: var(--txt); letter-spacing: -0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--sand); }
+    .back-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--txt2);
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--sand-dk); }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    /* HERO */
+    .page-hero {
+      min-height: 55vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 8rem 5rem 4rem;
+      background: var(--char); position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px; opacity: 0.12;
+    }
+    /* Large decorative word */
+    .page-hero::after {
+      content: 'STORIES';
+      position: absolute; right: -1rem; bottom: -1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 14vw, 11rem); font-weight: 900;
+      color: rgba(196,168,130,0.05); white-space: nowrap;
+      pointer-events: none; letter-spacing: -0.02em; line-height: 1;
+    }
+    .page-badge {
+      display: inline-block; background: var(--sand); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; margin-bottom: 1.2rem; position: relative;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900;
+      color: var(--white); line-height: 1.0; letter-spacing: -0.02em;
+      max-width: 700px; position: relative; margin-bottom: 1rem;
+    }
+    .page-sub { font-size: 0.9rem; color: var(--txt3); position: relative; max-width: 560px; line-height: 1.75; }
+
+    /* BODY */
+    .page-body { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
+
+    /* WRITER'S STATEMENT */
+    .statement {
+      border-left: 2px solid var(--sand);
+      padding: 1.5rem 2rem; margin-bottom: 5rem;
+      background: var(--cream);
+    }
+    .statement p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.85; color: var(--txt2); font-style: italic;
+    }
+
+    /* SECTION LABELS */
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--sand-dk); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700; color: var(--txt); margin-bottom: 2rem; line-height: 1.15;
+    }
+
+    /* ── FEATURED FICTION ── */
+    .fiction-feature {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: start; margin-bottom: 5rem;
+    }
+    .fiction-meta { }
+    .fiction-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900;
+      color: var(--txt); line-height: 1.1; margin-bottom: 0.3rem;
+    }
+    .fiction-series {
+      font-size: 0.75rem; color: var(--sand-dk); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 600;
+    }
+    .fiction-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.4rem; }
+    .ftag {
+      font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;
+    }
+    .fiction-desc { font-size: 0.9rem; line-height: 1.85; color: var(--txt2); margin-bottom: 1.4rem; }
+
+    .world-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border); margin-bottom: 1.5rem;
+    }
+    .ws-cell { background: var(--white); padding: 1rem; }
+    .ws-n { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--sand-dk); }
+    .ws-l { font-size: 0.62rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem; }
+
+    .wip-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(196,168,130,0.12); border: 1px solid var(--border);
+      color: var(--sand-dk); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem;
+    }
+    .wip-dot { width: 6px; height: 6px; background: var(--sand); border-radius: 50%; animation: pulse 2s ease infinite; }
+
+    /* MAP PLACEHOLDER */
+    .map-box {
+      background: var(--char2);
+      border: 1px solid rgba(196,168,130,0.15);
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden; gap: 0.8rem;
+      cursor: default;
+    }
+    /* When you have the map image, replace this with an <img> tag */
+    .map-box-inner { text-align: center; }
+    .map-icon { font-size: 2.5rem; opacity: 0.3; display: block; margin-bottom: 0.6rem; }
+    .map-label { font-size: 0.72rem; color: var(--txt3); letter-spacing: 0.1em; text-transform: uppercase; }
+    .map-sublabel { font-size: 0.65rem; color: rgba(138,133,125,0.6); margin-top: 0.3rem; letter-spacing: 0.06em; }
+
+    /* When an actual map image is available */
+    .map-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.3s; }
+    .map-box:hover img { opacity: 1; }
+    .map-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,25,23,0.6) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .map-caption {
+      position: absolute; bottom: 1rem; left: 1.2rem; right: 1.2rem;
+    }
+    .map-caption-title {
+      font-family: 'Playfair Display', serif; font-size: 1rem;
+      color: var(--white); font-style: italic;
+    }
+    .map-caption-sub { font-size: 0.65rem; color: var(--sand-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.2rem; }
+
+    /* EXCERPT */
+    .excerpt-block {
+      background: var(--char); padding: 3rem; margin-bottom: 5rem;
+      position: relative; overflow: hidden;
+    }
+    .excerpt-block::before {
+      content: '"';
+      position: absolute; top: -1rem; left: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem; color: rgba(196,168,130,0.06);
+      line-height: 1; pointer-events: none;
+    }
+    .excerpt-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand); margin-bottom: 1.5rem; }
+    .excerpt-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      line-height: 2; color: rgba(232,213,183,0.85);
+      font-style: italic; position: relative;
+      max-height: 420px; overflow: hidden;
+    }
+    .excerpt-text p { margin-bottom: 1.2rem; }
+    .excerpt-text p:last-child { margin-bottom: 0; }
+
+    /* fade out bottom of excerpt */
+    .excerpt-fade {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--char));
+      pointer-events: none;
+    }
+    .excerpt-footer {
+      margin-top: 1.5rem; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .excerpt-source {
+      font-size: 0.72rem; color: var(--txt3); letter-spacing: 0.06em;
+    }
+    .excerpt-source em { color: var(--sand-lt); font-style: normal; }
+
+    /* ── OTHER CATEGORIES ── */
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem; margin-bottom: 5rem;
+    }
+    .cat-card {
+      border: 1px solid var(--border); padding: 2rem 1.5rem;
+      transition: all 0.3s; background: var(--white);
+    }
+    .cat-card:hover { border-color: var(--sand); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,168,130,0.1); }
+    .cat-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+    .cat-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--txt); margin-bottom: 0.5rem; }
+    .cat-desc { font-size: 0.78rem; color: var(--txt2); line-height: 1.7; margin-bottom: 1.2rem; }
+    .cat-status {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--txt3); border: 1px solid var(--border);
+      padding: 0.28rem 0.65rem;
+    }
+
+    /* FOOTER NAV */
+    .proj-footer-nav {
+      background: var(--char); padding: 3rem 5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .pfn-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.4rem; }
+    .pfn-back { padding: 0.85rem 2rem; background: transparent; color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+    .pfn-back:hover { background: var(--sand); color: var(--white); border-color: var(--sand); }
+
+    footer { background: var(--char); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .ftxt { font-size: 0.7rem; color: var(--txt3); }
+
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    @media (max-width: 900px) {
+      .fiction-feature { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .page-hero { padding: 7rem 1.5rem 3rem; }
+      .page-body { padding: 3rem 1.5rem; }
+      .excerpt-block { padding: 2rem 1.5rem; }
+      .categories-grid { grid-template-columns: 1fr; }
+      .world-stats { grid-template-columns: repeat(3,1fr); }
+      .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JD<span>.</span></a>
+  <a href="index.html#portfolio" class="back-link">Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <span class="page-badge">Creative Writing</span>
+  <h1 class="page-title">Stories Worth<br>Telling</h1>
+  <p class="page-sub">Fiction, essays, poetry, and scripts — each one a different lens on the same core craft: making people feel something true.</p>
+</section>
+
+<!-- BODY -->
+<div class="page-body">
+
+  <!-- WRITER'S STATEMENT -->
+  <div class="statement">
+    <p>"I write because the world inside my head demands it. Whether it's a cursed girl fleeing an empire on the open sea, or an essay untangling something I can't quite say out loud — writing is how I make sense of things. The medium changes. The intention doesn't."</p>
+  </div>
+
+  <!-- FEATURED FICTION -->
+  <div style="margin-bottom: 2rem;">
+    <p class="section-label">Featured Work</p>
+    <h2 class="section-title">Fiction</h2>
+  </div>
+
+  <div class="fiction-feature">
+    <!-- LEFT: META -->
+    <div class="fiction-meta">
+      <div class="fiction-series">The Survivors · Book One</div>
+      <h3 class="fiction-title">Shattered Sails</h3>
+      <div class="fiction-tags">
+        <span class="ftag">Fantasy</span>
+        <span class="ftag">Adventure</span>
+        <span class="ftag">Found Family</span>
+        <span class="ftag">Grief Narrative</span>
+        <span class="ftag">Sea Voyage</span>
+      </div>
+      <p class="fiction-desc">In a world where isles graze the sky and empires are forged in promise, Lyla Vander is cursed. Bound to a magical amulet she doesn't understand, she flees the reach of the Hyllan Empire's most dangerous agents — the Inquisitors — across open, unforgiving seas.</p>
+      <p class="fiction-desc">Alongside four unlikely companions, she searches for answers. What unfolds is a story of loss, grief, and the slow, messy work of finding your place — structured around the five stages of grief, one arc at a time. Whether Lyla finds acceptance or demise depends on how far she's willing to go.</p>
+
+      <div class="world-stats">
+        <div class="ws-cell"><div class="ws-n">5</div><div class="ws-l">Story Arcs</div></div>
+        <div class="ws-cell"><div class="ws-n">3+</div><div class="ws-l">Continents</div></div>
+        <div class="ws-cell"><div class="ws-n">∞</div><div class="ws-l">Stories in Theraria</div></div>
+      </div>
+
+      <div class="wip-badge"><span class="wip-dot"></span> Work in Progress</div>
+    </div>
+
+    <!-- RIGHT: MAP -->
+    <div>
+      <!--
+        INSTRUCTIONS: Once you export your Wonderdraft map as a PNG/JPG
+        and upload it to GitHub, replace the map-box div below with:
+
+        <div class="map-box">
+          <img src="theraria-map.png" alt="Map of Theraria">
+          <div class="map-overlay"></div>
+          <div class="map-caption">
+            <div class="map-caption-title">Theraria</div>
+            <div class="map-caption-sub">The Known World</div>
+          </div>
+        </div>
+      -->
+      <div class="map-box">
+        <div class="map-box-inner">
+          <span class="map-icon">🗺️</span>
+          <div class="map-label">Map of Theraria</div>
+          <div class="map-sublabel">Export from Wonderdraft → upload here</div>
+        </div>
+      </div>
+      <p style="font-size:0.68rem; color:var(--txt3); margin-top:0.6rem; text-align:center; letter-spacing:0.05em;">The Known World · Theraria</p>
+    </div>
+  </div>
+
+  <!-- EXCERPT -->
+  <div class="excerpt-block">
+    <div class="excerpt-label">Chapter Excerpt — Shattered Sails</div>
+    <div class="excerpt-text" id="excerptText">
+      <p>The cargo hold was cramped, the air damp, rife of rotted animal carcasses, and sweat. This brought a feral temperament to one Lyla Vander. Posing as Lynja of Karkova, she is riddled with anger. The ship turned her stomach into something fierce, every crash of the waves against the side of the ship caused it to tip to one side, and each tip caused her head to swell. With each bounce, Lyla grew annoyed. Every instance was another elbow to her side, another foot to her face.</p>
+      <p>The room itself was dimly lit, only a glow beetle illuminated the surroundings. Lyla groaned, she had enough. She made room around her easily and carefully got up from her confinement. She stepped over the bodies surrounding her, the Kizan who saved her, the dwarf who tricked her, an Otherblood Eif and Ma'i. Step by step, she tip-toed to the door at the end of the hold, pushing past large crates that seemed too light to move.</p>
+      <p>"Hey," a voice whispered out beside her, a large wooden object poked at her side. "What do you think you are doing?"</p>
+      <p>She stopped in her tracks, her face unmoved, yet a tad bit scared. She slowly turned around. The slender figure before her was draped in a grey robe that sunk to the floorboard, face hidden beneath the cloth — though two noticeable features were his pointed ears.</p>
+      <p>"Getting out? Breathing some air? I'm cramped in here," Lyla retorted nastily.</p>
+      <p>"You can't, not until they tell us. I'm sure your kind can wait a while longer," he spat, positioning himself closer.</p>
+      <p>"Excuse you!" Lyla scoffed. "Who cares, what can they do to us for wanting some air? And what do you even know, Eif?" The Eif moved forward, leaving no room, so close she could peek under his hood. A stone cold gaze shone back — harsh yellow eyes, fierce determination. She smirked.</p>
+      <p>"You Eifs like being cargo huh?" She spat at him. He flinched.</p>
+    </div>
+    <div class="excerpt-fade"></div>
+    <div class="excerpt-footer">
+      <span class="excerpt-source">From <em>Shattered Sails</em> · The Survivors, Book One</span>
+      <div class="wip-badge"><span class="wip-dot"></span> Work in Progress</div>
+    </div>
+  </div>
+
+  <!-- OTHER CATEGORIES -->
+  <div style="margin-bottom: 2rem;">
+    <p class="section-label">Other Forms</p>
+    <h2 class="section-title">More Writing</h2>
+  </div>
+
+  <div class="categories-grid">
+
+    <div class="cat-card">
+      <span class="cat-icon">✒️</span>
+      <div class="cat-title">Essays</div>
+      <div class="cat-desc">Analytical and personal essays exploring communication, culture, identity, and the spaces between them. Rooted in observation, driven by argument.</div>
+      <span class="cat-status">Coming Soon</span>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🖊️</span>
+      <div class="cat-title">Poetry</div>
+      <div class="cat-desc">Poems that reach for the thing language almost can't say. Spare, deliberate, and occasionally loud about it.</div>
+      <span class="cat-status">Coming Soon</span>
+    </div>
+
+    <div class="cat-card">
+      <span class="cat-icon">🎬</span>
+      <div class="cat-title">Scripts</div>
+      <div class="cat-desc">Screenplays and stage scripts — storytelling stripped to its structural bones. Dialogue, subtext, and the silence between lines.</div>
+      <span class="cat-status">Coming Soon</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER NAV -->
+<div class="proj-footer-nav">
+  <div>
+    <div class="pfn-label">Explore More</div>
+    <a href="index.html#portfolio" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C4A882'" onmouseout="this.style.color='white'">Back to All Projects →</a>
+  </div>
+  <a href="index.html#contact" class="pfn-back">Get in Touch</a>
+</div>
+
+<footer>
+  <span class="ftxt">© 2026 Juan Diego M. Guerrero</span>
+  <span class="ftxt">Austin, TX</span>
+</footer>
+
+</body>
+</html>
