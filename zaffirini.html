@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senator Zaffirini — JD Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #C4A882; --sand-lt: #E8D5B7; --sand-dk: #9C7E52;
+      --white: #FFFFFF; --cream: #F8F5F0;
+      --char: #1A1917; --char2: #252320;
+      --txt: #1A1917; --txt2: #5A5750; --txt3: #8A857D;
+      --border: rgba(196,168,130,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--char); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; color: var(--txt); letter-spacing: -0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--sand); }
+    .back-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--txt2);
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--sand-dk); }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    /* HERO */
+    .proj-hero {
+      min-height: 60vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 8rem 5rem 4rem;
+      background: var(--char); position: relative; overflow: hidden;
+    }
+    .proj-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px; opacity: 0.15;
+    }
+    .proj-hero::after {
+      content: '🏛️';
+      position: absolute; right: 5rem; top: 50%; transform: translateY(-50%);
+      font-size: clamp(6rem, 15vw, 12rem); opacity: 0.06;
+      pointer-events: none;
+    }
+    .proj-badge {
+      display: inline-block; background: var(--sand); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; margin-bottom: 1.2rem; position: relative;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; position: relative; }
+    .proj-tag {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); padding: 0.2rem 0.6rem;
+    }
+    .proj-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900;
+      color: var(--white); line-height: 1.05; letter-spacing: -0.02em;
+      max-width: 700px; position: relative;
+    }
+    .proj-subtitle { font-size: 0.9rem; color: var(--txt3); margin-top: 0.8rem; position: relative; }
+
+    /* CONTENT */
+    .proj-body { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+
+    .section-block { margin-bottom: 4rem; }
+    .block-label {
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--sand-dk); margin-bottom: 0.6rem;
+    }
+    .block-title {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem;
+      font-weight: 700; color: var(--txt); margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .block-text { font-size: 0.92rem; line-height: 1.9; color: var(--txt2); margin-bottom: 1rem; }
+
+    /* META ROW */
+    .meta-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border);
+      margin-bottom: 4rem;
+    }
+    .meta-cell { background: var(--cream); padding: 1.5rem; }
+    .meta-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.88rem; font-weight: 600; color: var(--txt); }
+
+    /* BULLET LIST */
+    .contrib-list { list-style: none; }
+    .contrib-list li {
+      font-size: 0.88rem; line-height: 1.8; color: var(--txt2);
+      padding: 0.9rem 0 0.9rem 1.4rem; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .contrib-list li:first-child { border-top: 1px solid var(--border); }
+    .contrib-list li::before { content: '—'; position: absolute; left: 0; color: var(--sand-dk); }
+
+    /* SAMPLES GRID */
+    .samples-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .sample-card {
+      border: 1px solid var(--border); padding: 1.8rem;
+      transition: all 0.25s; cursor: pointer; text-decoration: none; display: block;
+      background: var(--white);
+    }
+    .sample-card:hover { border-color: var(--sand); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,168,130,0.12); }
+    .sample-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+    .sample-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--txt); margin-bottom: 0.35rem; }
+    .sample-desc { font-size: 0.76rem; color: var(--txt3); line-height: 1.6; }
+    .sample-cta {
+      display: inline-block; margin-top: 0.8rem;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sand-dk); font-weight: 600;
+    }
+
+    /* PLACEHOLDER STATE */
+    .placeholder-box {
+      border: 1px dashed var(--border); padding: 3rem 2rem; text-align: center;
+      background: var(--cream);
+    }
+    .placeholder-box p { font-size: 0.82rem; color: var(--txt3); line-height: 1.7; }
+
+    /* FOOTER NAV */
+    .proj-footer-nav {
+      background: var(--char); padding: 3rem 5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .pfn-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.4rem; }
+    .pfn-link {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      color: var(--white); text-decoration: none; transition: color 0.2s;
+    }
+    .pfn-link:hover { color: var(--sand); }
+    .pfn-back {
+      padding: 0.85rem 2rem; background: transparent; color: var(--sand-lt);
+      border: 1px solid rgba(232,213,183,0.3); font-size: 0.74rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+      transition: all 0.25s;
+    }
+    .pfn-back:hover { background: var(--sand); color: var(--white); border-color: var(--sand); }
+
+    footer { background: var(--char); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .ftxt { font-size: 0.7rem; color: var(--txt3); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero { padding: 7rem 1.5rem 3rem; }
+      .proj-body { padding: 3rem 1.5rem; }
+      .meta-row { grid-template-columns: 1fr; }
+      .samples-grid { grid-template-columns: 1fr; }
+      .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JD<span>.</span></a>
+  <a href="index.html#portfolio" class="back-link">Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="proj-hero">
+  <span class="proj-badge">Featured Project</span>
+  <div class="proj-tags">
+    <span class="proj-tag">Legislative</span>
+    <span class="proj-tag">Writing</span>
+    <span class="proj-tag">Public Relations</span>
+    <span class="proj-tag">Research</span>
+  </div>
+  <h1 class="proj-title">Senator Zaffirini — Legislative Internship</h1>
+  <p class="proj-subtitle">Office of Senator Judith Zaffirini · Texas Senate · Austin, TX</p>
+</section>
+
+<!-- BODY -->
+<div class="proj-body">
+
+  <!-- META -->
+  <div class="meta-row">
+    <div class="meta-cell">
+      <div class="meta-label">Duration</div>
+      <div class="meta-value">Jun 2023 – Aug 2023</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Legislative Intern</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Organization</div>
+      <div class="meta-value">Texas Senate, District 21</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section-block">
+    <p class="block-label">Overview</p>
+    <h2 class="block-title">Working inside the Texas Senate</h2>
+    <p class="block-text">During the summer of 2023, I interned in the Austin district office of Senator Judith Zaffirini — one of the longest-serving and most prolific legislators in Texas Senate history. The internship placed me at the intersection of public service, strategic communication, and policy research.</p>
+    <p class="block-text">My day-to-day responsibilities ranged from managing constituent casework and drafting official communications to conducting legislative research and supporting the senator's communications team with press and newsletter content.</p>
+  </div>
+
+  <!-- CONTRIBUTIONS -->
+  <div class="section-block">
+    <p class="block-label">Key Contributions</p>
+    <h2 class="block-title">What I Did</h2>
+    <ul class="contrib-list">
+      <li>Managed constituent cases end-to-end — logging inquiries, coordinating with state agencies, and following up with respectful, clear written communication.</li>
+      <li>Drafted press releases and newsletters distributed to Senator Zaffirini's constituents across District 21.</li>
+      <li>Wrote bill summaries and briefing memos for legislative staff, distilling complex policy language into accessible language.</li>
+      <li>Conducted background research on active legislation, policy issues, and current events relevant to the senator's committee work.</li>
+      <li>Supported day-to-day office operations during an active legislative period, collaborating with full-time staff under deadline pressure.</li>
+    </ul>
+  </div>
+
+  <!-- WORK SAMPLES -->
+  <div class="section-block">
+    <p class="block-label">Work Samples</p>
+    <h2 class="block-title">Selected Deliverables</h2>
+
+    <!-- REPLACE the placeholder below with your sample-card links once you have files ready -->
+    <div class="placeholder-box">
+      <p>Work samples coming soon.<br>Add links to your press releases, bill summaries, or memos here — replace this block with the sample cards below once your files are uploaded.</p>
+    </div>
+
+    <!--
+    INSTRUCTIONS: Delete the placeholder-box above and uncomment the grid below.
+    Replace each href="#" with a real Google Drive link or file path.
+
+    <div class="samples-grid">
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📄</span>
+        <div class="sample-title">Press Release — [Topic]</div>
+        <div class="sample-desc">Official press release drafted for Senator Zaffirini's office on [subject].</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📋</span>
+        <div class="sample-title">Bill Summary — [Bill Name]</div>
+        <div class="sample-desc">Concise summary of [bill] prepared for legislative staff review.</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📰</span>
+        <div class="sample-title">Constituent Newsletter</div>
+        <div class="sample-desc">Newsletter draft covering legislative updates for District 21 constituents.</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📝</span>
+        <div class="sample-title">Briefing Memo — [Topic]</div>
+        <div class="sample-desc">Policy briefing memo prepared for senior legislative staff.</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+    </div>
+    -->
+  </div>
+
+</div>
+
+<!-- FOOTER NAV -->
+<div class="proj-footer-nav">
+  <div>
+    <div class="pfn-label">Next Project</div>
+    <a href="groovy-goat.html" class="pfn-link">Groovy Goat Music Festival →</a>
+  </div>
+  <a href="index.html#portfolio" class="pfn-back">← All Projects</a>
+</div>
+
+<footer>
+  <span class="ftxt">© 2026 Juan Diego M. Guerrero</span>
+  <span class="ftxt">Austin, TX</span>
+</footer>
+
+</body>
+</html>

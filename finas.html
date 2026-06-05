@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fina's Cooking & Catering — JD Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #C4A882; --sand-lt: #E8D5B7; --sand-dk: #9C7E52;
+      --white: #FFFFFF; --cream: #F8F5F0;
+      --char: #1A1917; --char2: #252320;
+      --txt: #1A1917; --txt2: #5A5750; --txt3: #8A857D;
+      --border: rgba(196,168,130,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--char); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; color: var(--txt); letter-spacing: -0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--sand); }
+    .back-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--txt2);
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--sand-dk); }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    .proj-hero {
+      min-height: 60vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 8rem 5rem 4rem;
+      background: var(--char); position: relative; overflow: hidden;
+    }
+    .proj-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px; opacity: 0.15;
+    }
+    .proj-hero::after {
+      content: '📱';
+      position: absolute; right: 5rem; top: 50%; transform: translateY(-50%);
+      font-size: clamp(6rem, 15vw, 12rem); opacity: 0.06;
+      pointer-events: none;
+    }
+    .proj-badge {
+      display: inline-block; background: var(--sand); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; margin-bottom: 1.2rem; position: relative;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; position: relative; }
+    .proj-tag {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); padding: 0.2rem 0.6rem;
+    }
+    .proj-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900;
+      color: var(--white); line-height: 1.05; letter-spacing: -0.02em;
+      max-width: 700px; position: relative;
+    }
+    .proj-subtitle { font-size: 0.9rem; color: var(--txt3); margin-top: 0.8rem; position: relative; }
+
+    .proj-body { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-block { margin-bottom: 4rem; }
+    .block-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand-dk); margin-bottom: 0.6rem; }
+    .block-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--txt); margin-bottom: 1.2rem; line-height: 1.2; }
+    .block-text { font-size: 0.92rem; line-height: 1.9; color: var(--txt2); margin-bottom: 1rem; }
+
+    .meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 4rem; }
+    .meta-cell { background: var(--cream); padding: 1.5rem; }
+    .meta-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.88rem; font-weight: 600; color: var(--txt); }
+
+    .contrib-list { list-style: none; }
+    .contrib-list li {
+      font-size: 0.88rem; line-height: 1.8; color: var(--txt2);
+      padding: 0.9rem 0 0.9rem 1.4rem; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .contrib-list li:first-child { border-top: 1px solid var(--border); }
+    .contrib-list li::before { content: '—'; position: absolute; left: 0; color: var(--sand-dk); }
+
+    /* RESULTS ROW */
+    .results-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2rem 0; }
+    .result-cell { background: var(--white); padding: 1.8rem; text-align: center; }
+    .result-n { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--sand-dk); }
+    .result-l { font-size: 0.68rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+
+    .samples-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .sample-card {
+      border: 1px solid var(--border); padding: 1.8rem;
+      transition: all 0.25s; cursor: pointer; text-decoration: none; display: block; background: var(--white);
+    }
+    .sample-card:hover { border-color: var(--sand); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,168,130,0.12); }
+    .sample-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+    .sample-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--txt); margin-bottom: 0.35rem; }
+    .sample-desc { font-size: 0.76rem; color: var(--txt3); line-height: 1.6; }
+    .sample-cta { display: inline-block; margin-top: 0.8rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dk); font-weight: 600; }
+
+    .placeholder-box { border: 1px dashed var(--border); padding: 3rem 2rem; text-align: center; background: var(--cream); }
+    .placeholder-box p { font-size: 0.82rem; color: var(--txt3); line-height: 1.7; }
+
+    .proj-footer-nav { background: var(--char); padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .pfn-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.4rem; }
+    .pfn-link { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .pfn-link:hover { color: var(--sand); }
+    .pfn-back { padding: 0.85rem 2rem; background: transparent; color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+    .pfn-back:hover { background: var(--sand); color: var(--white); border-color: var(--sand); }
+
+    footer { background: var(--char); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .ftxt { font-size: 0.7rem; color: var(--txt3); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero { padding: 7rem 1.5rem 3rem; }
+      .proj-body { padding: 3rem 1.5rem; }
+      .meta-row { grid-template-columns: 1fr; }
+      .results-row { grid-template-columns: repeat(3, 1fr); }
+      .samples-grid { grid-template-columns: 1fr; }
+      .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JD<span>.</span></a>
+  <a href="index.html#portfolio" class="back-link">Back to Portfolio</a>
+</nav>
+
+<section class="proj-hero">
+  <span class="proj-badge">Digital Marketing</span>
+  <div class="proj-tags">
+    <span class="proj-tag">Social Media</span>
+    <span class="proj-tag">Analytics</span>
+    <span class="proj-tag">Content Design</span>
+    <span class="proj-tag">Strategy</span>
+  </div>
+  <h1 class="proj-title">Fina's Cooking & Catering</h1>
+  <p class="proj-subtitle">Digital Marketing Intern → Social Media Manager · Laredo, TX</p>
+</section>
+
+<div class="proj-body">
+
+  <div class="meta-row">
+    <div class="meta-cell">
+      <div class="meta-label">Duration</div>
+      <div class="meta-value">Aug 2025 – Present</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Social Media Manager</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Platforms</div>
+      <div class="meta-value">Instagram · Facebook · WhatsApp</div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Overview</p>
+    <h2 class="block-title">Growing a local brand through storytelling</h2>
+    <p class="block-text">Fina's Cooking & Catering is a family-run catering business based in Laredo, TX. Starting as a Digital Marketing Intern in August 2025 and promoted to Part-Time Social Media Manager in January 2026, I built and manage the brand's full digital presence from the ground up.</p>
+    <p class="block-text">The work centers on translating the warmth and quality of a family business into content that resonates — using storytelling-driven posts, consistent visual branding via Canva, and data-informed decisions to grow the audience and drive real business inquiries.</p>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Key Contributions</p>
+    <h2 class="block-title">What I Did</h2>
+    <ul class="contrib-list">
+      <li>Grew the brand's social presence across Facebook, Instagram, and WhatsApp through consistent, storytelling-driven content.</li>
+      <li>Designed all visual content using Canva — maintaining a cohesive brand identity across every post and story.</li>
+      <li>Built a custom Excel-based analytics tracking system to monitor KPIs including reach, engagement rate, and follower growth.</li>
+      <li>Used analytical insights to optimize posting schedules, content formats, and caption strategies for maximum retention.</li>
+      <li>Enhanced click engagement through strategic design changes informed by platform analytics.</li>
+      <li>Developed and implemented content calendars to ensure consistent, timely publishing across all platforms.</li>
+    </ul>
+  </div>
+
+  <!-- RESULTS — update these numbers with your real data -->
+  <div class="section-block">
+    <p class="block-label">Results</p>
+    <h2 class="block-title">By the Numbers</h2>
+    <div class="results-row">
+      <div class="result-cell">
+        <div class="result-n">—</div>
+        <div class="result-l">Follower Growth</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-n">—</div>
+        <div class="result-l">Avg. Engagement Rate</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-n">—</div>
+        <div class="result-l">Posts Published</div>
+      </div>
+    </div>
+    <p class="block-text" style="font-size:0.78rem; color:var(--txt3); margin-top:0.8rem;">Update these with your real analytics data — pull from your Excel tracker or Instagram Insights.</p>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Work Samples</p>
+    <h2 class="block-title">Content & Strategy</h2>
+    <div class="placeholder-box">
+      <p>Work samples coming soon.<br>Add screenshots of posts, your analytics spreadsheet, or a Canva portfolio link here once ready.</p>
+    </div>
+
+    <!--
+    <div class="samples-grid">
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📊</span>
+        <div class="sample-title">Analytics Dashboard</div>
+        <div class="sample-desc">Custom Excel KPI tracker used to monitor growth and engagement across platforms.</div>
+        <span class="sample-cta">View Spreadsheet →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">🎨</span>
+        <div class="sample-title">Content Design Samples</div>
+        <div class="sample-desc">Selected Instagram and Facebook posts designed in Canva.</div>
+        <span class="sample-cta">View Gallery →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📅</span>
+        <div class="sample-title">Content Calendar</div>
+        <div class="sample-desc">Sample content calendar showing scheduling strategy across platforms.</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📈</span>
+        <div class="sample-title">Growth Report</div>
+        <div class="sample-desc">Summary of follower and engagement growth over the campaign period.</div>
+        <span class="sample-cta">View Report →</span>
+      </a>
+    </div>
+    -->
+  </div>
+
+</div>
+
+<div class="proj-footer-nav">
+  <div>
+    <div class="pfn-label">First Project</div>
+    <a href="zaffirini.html" class="pfn-link">Senator Zaffirini Internship →</a>
+  </div>
+  <a href="index.html#portfolio" class="pfn-back">← All Projects</a>
+</div>
+
+<footer>
+  <span class="ftxt">© 2026 Juan Diego M. Guerrero</span>
+  <span class="ftxt">Austin, TX</span>
+</footer>
+
+</body>
+</html>

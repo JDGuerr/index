@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groovy Goat Music Festival — JD Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --sand: #C4A882; --sand-lt: #E8D5B7; --sand-dk: #9C7E52;
+      --white: #FFFFFF; --cream: #F8F5F0;
+      --char: #1A1917; --char2: #252320;
+      --txt: #1A1917; --txt2: #5A5750; --txt3: #8A857D;
+      --border: rgba(196,168,130,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--char); }
+    ::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 2px; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 900; color: var(--txt); letter-spacing: -0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--sand); }
+    .back-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--txt2);
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--sand-dk); }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    .proj-hero {
+      min-height: 60vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 8rem 5rem 4rem;
+      background: var(--char2); position: relative; overflow: hidden;
+    }
+    .proj-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px; opacity: 0.15;
+    }
+    .proj-hero::after {
+      content: '🎵';
+      position: absolute; right: 5rem; top: 50%; transform: translateY(-50%);
+      font-size: clamp(6rem, 15vw, 12rem); opacity: 0.06;
+      pointer-events: none;
+    }
+    .proj-badge {
+      display: inline-block; background: var(--sand); color: var(--white);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; margin-bottom: 1.2rem; position: relative;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; position: relative; }
+    .proj-tag {
+      font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); padding: 0.2rem 0.6rem;
+    }
+    .proj-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900;
+      color: var(--white); line-height: 1.05; letter-spacing: -0.02em;
+      max-width: 700px; position: relative;
+    }
+    .proj-subtitle { font-size: 0.9rem; color: var(--txt3); margin-top: 0.8rem; position: relative; }
+
+    .proj-body { max-width: 860px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-block { margin-bottom: 4rem; }
+    .block-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sand-dk); margin-bottom: 0.6rem; }
+    .block-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--txt); margin-bottom: 1.2rem; line-height: 1.2; }
+    .block-text { font-size: 0.92rem; line-height: 1.9; color: var(--txt2); margin-bottom: 1rem; }
+
+    .meta-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 4rem; }
+    .meta-cell { background: var(--cream); padding: 1.5rem; }
+    .meta-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.88rem; font-weight: 600; color: var(--txt); }
+
+    .contrib-list { list-style: none; }
+    .contrib-list li {
+      font-size: 0.88rem; line-height: 1.8; color: var(--txt2);
+      padding: 0.9rem 0 0.9rem 1.4rem; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .contrib-list li:first-child { border-top: 1px solid var(--border); }
+    .contrib-list li::before { content: '—'; position: absolute; left: 0; color: var(--sand-dk); }
+
+    .samples-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .sample-card {
+      border: 1px solid var(--border); padding: 1.8rem;
+      transition: all 0.25s; cursor: pointer; text-decoration: none; display: block; background: var(--white);
+    }
+    .sample-card:hover { border-color: var(--sand); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(196,168,130,0.12); }
+    .sample-icon { font-size: 1.6rem; margin-bottom: 0.8rem; display: block; }
+    .sample-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--txt); margin-bottom: 0.35rem; }
+    .sample-desc { font-size: 0.76rem; color: var(--txt3); line-height: 1.6; }
+    .sample-cta { display: inline-block; margin-top: 0.8rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand-dk); font-weight: 600; }
+
+    .placeholder-box { border: 1px dashed var(--border); padding: 3rem 2rem; text-align: center; background: var(--cream); }
+    .placeholder-box p { font-size: 0.82rem; color: var(--txt3); line-height: 1.7; }
+
+    .proj-footer-nav { background: var(--char); padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .pfn-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--txt3); margin-bottom: 0.4rem; }
+    .pfn-link { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .pfn-link:hover { color: var(--sand); }
+    .pfn-back { padding: 0.85rem 2rem; background: transparent; color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.3); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; }
+    .pfn-back:hover { background: var(--sand); color: var(--white); border-color: var(--sand); }
+
+    footer { background: var(--char); border-top: 1px solid rgba(255,255,255,0.06); padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+    .ftxt { font-size: 0.7rem; color: var(--txt3); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero { padding: 7rem 1.5rem 3rem; }
+      .proj-body { padding: 3rem 1.5rem; }
+      .meta-row { grid-template-columns: 1fr; }
+      .samples-grid { grid-template-columns: 1fr; }
+      .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JD<span>.</span></a>
+  <a href="index.html#portfolio" class="back-link">Back to Portfolio</a>
+</nav>
+
+<section class="proj-hero">
+  <span class="proj-badge">Event PR & Campaign</span>
+  <div class="proj-tags">
+    <span class="proj-tag">Event PR</span>
+    <span class="proj-tag">Campaign Strategy</span>
+    <span class="proj-tag">Social Media</span>
+    <span class="proj-tag">Team Leadership</span>
+  </div>
+  <h1 class="proj-title">Groovy Goat Music Festival</h1>
+  <p class="proj-subtitle">St. Edward's University · Austin, TX · Student-Run Production</p>
+</section>
+
+<div class="proj-body">
+
+  <div class="meta-row">
+    <div class="meta-cell">
+      <div class="meta-label">Duration</div>
+      <div class="meta-value">Aug 2024 – Dec 2024</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">PR & Student Marketing Lead</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Organization</div>
+      <div class="meta-value">St. Edward's University</div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Overview</p>
+    <h2 class="block-title">Leading PR for Austin's student indie scene</h2>
+    <p class="block-text">Groovy Goat was a student-run music festival celebrating Austin's indie music culture, produced entirely by St. Edward's University students. As PR & Marketing Lead, I owned the full publicity strategy — from initial awareness campaigns through event day coverage.</p>
+    <p class="block-text">The role required managing a small PR team, coordinating across departments, and executing multi-channel campaigns that built genuine buzz on campus and in the surrounding community.</p>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Key Contributions</p>
+    <h2 class="block-title">What I Did</h2>
+    <ul class="contrib-list">
+      <li>Led the full publicity campaign strategy for the festival, setting goals, timelines, and messaging across all channels.</li>
+      <li>Coordinated multi-channel campaigns spanning social media, campus flyers, pop-up tabling events, and cross-departmental email outreach.</li>
+      <li>Managed a PR sub-team — delegating tasks, building shared calendars, and maintaining a collaborative creative environment under deadline pressure.</li>
+      <li>Developed and executed pop-up promotional events on campus to drive ticket awareness and engagement.</li>
+      <li>Fostered relationships with student organizations, faculty, and external vendors to amplify reach beyond the core student body.</li>
+    </ul>
+  </div>
+
+  <div class="section-block">
+    <p class="block-label">Work Samples</p>
+    <h2 class="block-title">Campaign Materials</h2>
+    <div class="placeholder-box">
+      <p>Work samples coming soon.<br>Add social media graphics, campaign decks, or event photos here once ready.</p>
+    </div>
+
+    <!--
+    <div class="samples-grid">
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📣</span>
+        <div class="sample-title">Campaign Strategy Deck</div>
+        <div class="sample-desc">Full PR strategy presentation covering channels, messaging, and timeline.</div>
+        <span class="sample-cta">View Deck →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">🎨</span>
+        <div class="sample-title">Social Media Graphics</div>
+        <div class="sample-desc">Promotional graphics designed for Instagram, Facebook, and campus screens.</div>
+        <span class="sample-cta">View Gallery →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📅</span>
+        <div class="sample-title">Campaign Calendar</div>
+        <div class="sample-desc">Task and content calendar used to manage the PR team across the semester.</div>
+        <span class="sample-cta">View Document →</span>
+      </a>
+      <a href="#" target="_blank" class="sample-card">
+        <span class="sample-icon">📸</span>
+        <div class="sample-title">Event Photography</div>
+        <div class="sample-desc">Selected photos from the festival and promotional pop-up events.</div>
+        <span class="sample-cta">View Photos →</span>
+      </a>
+    </div>
+    -->
+  </div>
+
+</div>
+
+<div class="proj-footer-nav">
+  <div>
+    <div class="pfn-label">Next Project</div>
+    <a href="finas.html" class="pfn-link">Fina's Cooking & Catering →</a>
+  </div>
+  <a href="index.html#portfolio" class="pfn-back">← All Projects</a>
+</div>
+
+<footer>
+  <span class="ftxt">© 2026 Juan Diego M. Guerrero</span>
+  <span class="ftxt">Austin, TX</span>
+</footer>
+
+</body>
+</html>
