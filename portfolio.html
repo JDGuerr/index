@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Work — Juan Diego M. Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red:     #9E1B32;
+      --red-lt:  #BC2240;
+      --sand:    #C4A882;
+      --sand-lt: #E8D5B7;
+      --sand-dk: #9C7E52;
+      --char4:   #1C1510;
+      --txt3:    #8A857D;
+      --f-d: 'Cormorant Garamond', serif;
+      --f-b: 'DM Sans', sans-serif;
+      --f-m: 'JetBrains Mono', monospace;
+    }
+
+    html, body {
+      background: var(--char4);
+      color: var(--sand-lt);
+      font-family: var(--f-b);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── FIXED HEADER ───────────────────────────────── */
+    .fx-head {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 1.6rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom,
+        rgba(22,16,11,0.96) 0%,
+        rgba(22,16,11,0.55) 60%,
+        transparent 100%);
+      pointer-events: none;
+    }
+    .fx-left { display: flex; align-items: center; gap: 1.25rem; }
+    .fx-logo {
+      font-family: var(--f-d); font-size: 1.15rem; font-weight: 600;
+      color: var(--sand-lt); letter-spacing: -0.01em;
+    }
+    .fx-logo em { color: var(--red); font-style: normal; }
+    .fx-sep   { width: 1px; height: 13px; background: rgba(196,168,130,0.18); }
+    .fx-label { font-size: 0.52rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--txt3); font-weight: 500; }
+    .fx-count { font-family: var(--f-m); font-size: 0.52rem; color: var(--txt3); letter-spacing: 0.07em; }
+
+    /* ── SIDE NAV ───────────────────────────────────── */
+    .side-nav {
+      position: fixed; right: 2rem; top: 50%; transform: translateY(-50%);
+      z-index: 200;
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    }
+    .sn-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      text-decoration: none;
+      font-family: var(--f-m); font-size: 0.5rem; letter-spacing: 0.05em;
+      color: rgba(196,168,130,0.2);
+      transition: color 0.35s ease, transform 0.35s ease;
+    }
+    .sn-item::after {
+      content: ''; width: 3px; height: 3px; border-radius: 50%;
+      background: currentColor; transition: transform 0.3s ease;
+    }
+    .sn-item.active { color: var(--red); transform: scale(1.15); }
+    .sn-item.active::after { transform: scale(1.6); }
+
+    /* ── FULL-SCREEN SECTIONS ───────────────────────── */
+    .pi {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* unique dark base per section */
+    .pi[data-i="0"] { background: #1D170E; }
+    .pi[data-i="1"] { background: #19150D; }
+    .pi[data-i="2"] { background: #1C1810; }
+    .pi[data-i="3"] { background: #181410; }
+
+    /* thin top accent — crimson on first, faint rule on rest */
+    .pi[data-i="0"] { border-top: 2px solid var(--red); }
+    .pi[data-i="1"],
+    .pi[data-i="2"],
+    .pi[data-i="3"] { border-top: 1px solid rgba(196,168,130,0.06); }
+
+    /* ── ATMOSPHERIC BACKGROUND per section ── visible color, not subtle */
+    .pi-glow {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+    /* I — warm ember from bottom-left */
+    .pi[data-i="0"] .pi-glow {
+      background:
+        radial-gradient(ellipse 55% 65% at 10% 88%, rgba(158,27,50,0.42) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 50% at 82% 18%, rgba(196,168,130,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 40% at 50% 100%, rgba(80,20,12,0.6) 0%, transparent 55%);
+    }
+    /* II — ember from top-right */
+    .pi[data-i="1"] .pi-glow {
+      background:
+        radial-gradient(ellipse 55% 60% at 88% 12%, rgba(158,27,50,0.38) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 45% at 8% 82%, rgba(196,168,130,0.09) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 20% 100%, rgba(70,18,10,0.5) 0%, transparent 55%);
+    }
+    /* III — warm center-bottom bloom */
+    .pi[data-i="2"] .pi-glow {
+      background:
+        radial-gradient(ellipse 65% 55% at 48% 92%, rgba(158,27,50,0.4) 0%, transparent 52%),
+        radial-gradient(ellipse 35% 45% at 90% 8%, rgba(196,168,130,0.09) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 35% at 50% 100%, rgba(75,20,12,0.55) 0%, transparent 55%);
+    }
+    /* IV — ember from left-center */
+    .pi[data-i="3"] .pi-glow {
+      background:
+        radial-gradient(ellipse 50% 60% at 12% 55%, rgba(158,27,50,0.36) 0%, transparent 50%),
+        radial-gradient(ellipse 45% 50% at 78% 88%, rgba(196,168,130,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 75% 38% at 50% 100%, rgba(65,16,10,0.5) 0%, transparent 55%);
+    }
+
+    /* Edge vignette — frames and adds depth */
+    .pi::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 100% 55% at 50% 0%, rgba(16,11,7,0.8) 0%, transparent 55%),
+        linear-gradient(to right,
+          rgba(16,11,7,0.5) 0%, transparent 22%,
+          transparent 78%, rgba(16,11,7,0.5) 100%);
+    }
+
+    /* ── GHOST NUMERAL — genuinely large ───────────── */
+    .pi-ghost {
+      position: absolute;
+      right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--f-d);
+      font-size: clamp(17rem, 30vh, 26rem);
+      font-weight: 700; font-style: italic;
+      color: rgba(196,168,130,0.07);
+      line-height: 1; letter-spacing: -0.04em;
+      pointer-events: none; user-select: none;
+      z-index: 0;
+      will-change: transform;
+      transition: color 0.55s ease;
+    }
+    .pi:hover .pi-ghost { color: rgba(196,168,130,0.13); }
+
+    /* ── CONTENT — at the bottom of each section ───── */
+    .pi-content {
+      position: relative; z-index: 2;
+      padding: 0 4.5rem 5.5rem;
+      max-width: 820px;
+      /* entrance */
+      opacity: 0;
+      transform: translateY(40px);
+      transition:
+        opacity  0.85s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .pi.entered .pi-content { opacity: 1; transform: translateY(0); }
+
+    /* badge + counter */
+    .pi-meta {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.6rem;
+    }
+    .pi-badge {
+      font-size: 0.46rem; letter-spacing: 0.13em; text-transform: uppercase;
+      font-weight: 600; padding: 0.22rem 0.72rem; border-radius: 100px;
+    }
+    .pi-badge.featured   { background: var(--red); color: #fff; }
+    .pi-badge.case-study { border: 1px solid rgba(196,168,130,0.22); color: var(--sand); }
+    .pi-badge.ongoing    { border: 1px dashed rgba(196,168,130,0.22); color: var(--sand-dk); }
+    .pi-counter {
+      font-family: var(--f-m); font-size: 0.52rem;
+      color: var(--txt3); letter-spacing: 0.09em;
+    }
+
+    /* short crimson rule — editorial chapter marker */
+    .pi-rule {
+      width: 2.5rem; height: 2px;
+      background: linear-gradient(90deg, var(--red), rgba(158,27,50,0.4));
+      margin-bottom: 1.6rem;
+    }
+
+    /* PROJECT TITLE — the centrepiece */
+    .pi-name {
+      font-family: var(--f-d);
+      font-size: clamp(3.8rem, 8vw, 6.5rem);
+      font-weight: 300; font-style: italic;
+      color: var(--sand-lt);
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin-bottom: 1.4rem;
+      transition: color 0.3s ease;
+    }
+    .pi:hover .pi-name { color: #ffffff; }
+
+    .pi-role {
+      font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sand-dk); font-weight: 500;
+      margin-bottom: 1.1rem;
+    }
+
+    .pi-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.75rem; }
+    .pi-tag {
+      font-size: 0.48rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(158,27,50,0.72);
+      border: 1px solid rgba(158,27,50,0.2);
+      padding: 0.14rem 0.52rem; border-radius: 100px; font-weight: 500;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .pi:hover .pi-tag { color: var(--red); border-color: rgba(158,27,50,0.38); }
+
+    .pi-desc {
+      font-size: 0.88rem; line-height: 1.95;
+      color: rgba(196,168,130,0.55);
+      font-weight: 300;
+      max-width: 500px; margin-bottom: 2.25rem;
+    }
+
+    .pi-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--f-d); font-size: 1.1rem; font-style: italic;
+      color: var(--red); text-decoration: none;
+      transition: gap 0.22s ease, color 0.2s;
+    }
+    .pi-cta:hover { gap: 0.9rem; color: var(--red-lt); }
+
+    /* ── SCROLL PROGRESS LINE ── */
+    .scroll-line {
+      position: fixed; left: 0; top: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--red), rgba(158,27,50,0.4));
+      z-index: 300;
+      transition: width 0.1s linear;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .foot {
+      background: var(--char4);
+      border-top: 1px solid rgba(196,168,130,0.07);
+      padding: 1.75rem 4.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .foot-note {
+      font-family: var(--f-m); font-size: 0.5rem;
+      letter-spacing: 0.1em; color: rgba(196,168,130,0.14);
+    }
+    .foot-nav  { display: flex; gap: 2rem; }
+    .foot-link {
+      font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(196,168,130,0.18); text-decoration: none; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .foot-link:hover { color: var(--sand); }
+
+    /* ── MOBILE ─────────────────────────────────────── */
+    @media (max-width: 680px) {
+      .pi { min-height: auto; }
+      .pi-content { padding: 5.5rem 1.75rem 4rem; max-width: 100%; }
+      .pi-ghost   { font-size: 13rem; right: -0.5rem; }
+      .pi-name    { font-size: clamp(2.8rem, 10vw, 4rem); }
+      .side-nav   { display: none; }
+      .foot       { padding: 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress indicator -->
+<div class="scroll-line" id="scroll-line"></div>
+
+<!-- Fixed masthead -->
+<header class="fx-head">
+  <div class="fx-left">
+    <span class="fx-logo">JD<em>.</em></span>
+    <div class="fx-sep"></div>
+    <span class="fx-label">Selected Work</span>
+  </div>
+  <span class="fx-count" id="fx-count">01 / 04</span>
+</header>
+
+<!-- Fixed side navigation -->
+<nav class="side-nav" aria-label="Project navigation">
+  <a href="#pi-0" class="sn-item active" data-i="0">I</a>
+  <a href="#pi-1" class="sn-item"        data-i="1">II</a>
+  <a href="#pi-2" class="sn-item"        data-i="2">III</a>
+  <a href="#pi-3" class="sn-item"        data-i="3">IV</a>
+</nav>
+
+<!-- ── SECTION I — Senator Zaffirini ──────────────── -->
+<section class="pi" id="pi-0" data-i="0">
+  <div class="pi-glow"  aria-hidden="true"></div>
+  <div class="pi-ghost" aria-hidden="true">I</div>
+
+  <div class="pi-content">
+    <div class="pi-meta">
+      <span class="pi-badge featured">Featured</span>
+      <span class="pi-counter">01 / 04</span>
+    </div>
+    <div class="pi-rule"></div>
+    <h2 class="pi-name">Senator<br>Zaffirini</h2>
+    <div class="pi-role">Legislative Internship · Texas Senate · 88th Session</div>
+    <div class="pi-tags">
+      <span class="pi-tag">Government PR</span>
+      <span class="pi-tag">Legislative Writing</span>
+      <span class="pi-tag">Constituent Affairs</span>
+    </div>
+    <p class="pi-desc">A summer inside Texas Senate chambers — managing constituent correspondence, writing press releases and bill summaries, maintaining the Senator's newsletter and social media, and providing cross-functional support during the 88th Legislative Session.</p>
+    <a href="zaffirini.html" class="pi-cta">View Case Study →</a>
+  </div>
+</section>
+
+<!-- ── SECTION II — Groovy Goat ───────────────────── -->
+<section class="pi" id="pi-1" data-i="1">
+  <div class="pi-glow"  aria-hidden="true"></div>
+  <div class="pi-ghost" aria-hidden="true">II</div>
+
+  <div class="pi-content">
+    <div class="pi-meta">
+      <span class="pi-badge case-study">Case Study</span>
+      <span class="pi-counter">02 / 04</span>
+    </div>
+    <div class="pi-rule"></div>
+    <h2 class="pi-name">Groovy Goat<br>Music Festival</h2>
+    <div class="pi-role">PR &amp; Publicity Lead · COMM 4326 · Fall 2024</div>
+    <div class="pi-tags">
+      <span class="pi-tag">Event PR</span>
+      <span class="pi-tag">Campaign</span>
+      <span class="pi-tag">Team Lead</span>
+    </div>
+    <p class="pi-desc">Multi-channel publicity campaign for a student-run indie music festival in Austin — pop-ups, press, social, and cross-departmental coordination across a 16-person team, benefiting Side by Side Kids and Fruitful Commons.</p>
+    <a href="groovy-goat.html" class="pi-cta">View Case Study →</a>
+  </div>
+</section>
+
+<!-- ── SECTION III — Fina's ───────────────────────── -->
+<section class="pi" id="pi-2" data-i="2">
+  <div class="pi-glow"  aria-hidden="true"></div>
+  <div class="pi-ghost" aria-hidden="true">III</div>
+
+  <div class="pi-content">
+    <div class="pi-meta">
+      <span class="pi-badge ongoing">Ongoing</span>
+      <span class="pi-counter">03 / 04</span>
+    </div>
+    <div class="pi-rule"></div>
+    <h2 class="pi-name">Fina's Cooking<br>&amp; Catering</h2>
+    <div class="pi-role">Freelance Digital Strategist · Laredo, TX</div>
+    <div class="pi-tags">
+      <span class="pi-tag">Digital Marketing</span>
+      <span class="pi-tag">Social Media</span>
+      <span class="pi-tag">Analytics</span>
+    </div>
+    <p class="pi-desc">End-to-end digital marketing management for a family-run Laredo catering brand — rebuilt the marketing plan, redesigned the logo, created UTM-tracked QR codes, and managed Instagram, Facebook, and WhatsApp from the ground up.</p>
+    <a href="finas.html" class="pi-cta">View Case Study →</a>
+  </div>
+</section>
+
+<!-- ── SECTION IV — Dell ──────────────────────────── -->
+<section class="pi" id="pi-3" data-i="3">
+  <div class="pi-glow"  aria-hidden="true"></div>
+  <div class="pi-ghost" aria-hidden="true">IV</div>
+
+  <div class="pi-content">
+    <div class="pi-meta">
+      <span class="pi-badge case-study">Case Study</span>
+      <span class="pi-counter">04 / 04</span>
+    </div>
+    <div class="pi-rule"></div>
+    <h2 class="pi-name">Dell Marketing<br>B2B Outreach</h2>
+    <div class="pi-role">Integrated Campaign · FIXER PR University Partnership</div>
+    <div class="pi-tags">
+      <span class="pi-tag">B2B Marketing</span>
+      <span class="pi-tag">AI Products</span>
+      <span class="pi-tag">Campaign Strategy</span>
+    </div>
+    <p class="pi-desc">Full integrated B2B campaign for Dell's AI product line — SWOT analysis, creative brief, advertising executions, and PR strategy developed through FIXER PR's university partnership program.</p>
+    <a href="dell.html" class="pi-cta">View Case Study →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="foot">
+  <span class="foot-note">Communication · Strategy · Story</span>
+  <nav class="foot-nav">
+    <a href="index.html"         class="foot-link">Back to Portfolio</a>
+    <a href="index.html#contact" class="foot-link">Get in Touch</a>
+  </nav>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var sections   = Array.from(document.querySelectorAll('.pi'));
+  var navItems   = Array.from(document.querySelectorAll('.sn-item'));
+  var ghosts     = Array.from(document.querySelectorAll('.pi-ghost'));
+  var fxCount    = document.getElementById('fx-count');
+  var scrollLine = document.getElementById('scroll-line');
+  var rafScroll  = null;
+
+  /* ── SECTION ENTRANCE ─────────────────────────────── */
+  var enterObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('entered');
+        enterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  sections.forEach(function (s) { enterObs.observe(s); });
+
+  /* ── ACTIVE SECTION (nav + counter) ──────────────── */
+  var activeObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.intersectionRatio >= 0.45) {
+        var idx = e.target.dataset.i;
+        navItems.forEach(function (n) { n.classList.remove('active'); });
+        var nav = document.querySelector('.sn-item[data-i="' + idx + '"]');
+        if (nav) nav.classList.add('active');
+        if (fxCount) {
+          var n = parseInt(idx, 10) + 1;
+          fxCount.textContent = (n < 10 ? '0' : '') + n + ' / 04';
+        }
+      }
+    });
+  }, { threshold: 0.45 });
+
+  sections.forEach(function (s) { activeObs.observe(s); });
+
+  /* ── SCROLL PROGRESS LINE ─────────────────────────── */
+  function updateScrollLine() {
+    var doc = document.documentElement;
+    var pct = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+    if (scrollLine) scrollLine.style.width = pct.toFixed(2) + '%';
+  }
+
+  /* ── GHOST PARALLAX ───────────────────────────────── */
+  function doParallax() {
+    var vhalf = window.innerHeight * 0.5;
+    ghosts.forEach(function (ghost) {
+      var rect = ghost.closest('.pi').getBoundingClientRect();
+      var progress = (rect.top + rect.height * 0.5 - vhalf) / vhalf;
+      ghost.style.transform =
+        'translateY(calc(-50% + ' + (progress * 55).toFixed(2) + 'px))';
+    });
+    updateScrollLine();
+    rafScroll = null;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!rafScroll) rafScroll = requestAnimationFrame(doParallax);
+  }, { passive: true });
+
+  doParallax();
+
+  /* ── MOUSEMOVE — ghost drifts away from cursor ────── */
+  sections.forEach(function (section) {
+    var ghost = section.querySelector('.pi-ghost');
+    if (!ghost) return;
+
+    section.addEventListener('mousemove', function (e) {
+      var r  = section.getBoundingClientRect();
+      var nx = (e.clientX - r.left)  / r.width  - 0.5;
+      var ny = (e.clientY - r.top)   / r.height - 0.5;
+      var vhalf    = window.innerHeight * 0.5;
+      var baseY    = (r.top + r.height * 0.5 - vhalf) / vhalf * 55;
+      ghost.style.transform =
+        'translateY(calc(-50% + ' + (baseY + ny * -24).toFixed(2) + 'px))' +
+        ' translateX('             + (nx  * -18).toFixed(2) + 'px)';
+    });
+
+    section.addEventListener('mouseleave', function () {
+      var r     = section.getBoundingClientRect();
+      var vhalf = window.innerHeight * 0.5;
+      var baseY = (r.top + r.height * 0.5 - vhalf) / vhalf * 55;
+      ghost.style.transform =
+        'translateY(calc(-50% + ' + baseY.toFixed(2) + 'px))';
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

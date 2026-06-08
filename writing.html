@@ -90,7 +90,7 @@
     .ftxt { font-size: 0.7rem; color: var(--txt3); }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     @media (max-width: 900px) { .fiction-feature { grid-template-columns: 1fr; } .categories-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .page-hero { padding: 7rem 1.5rem 3rem; } .page-body { padding: 3rem 1.5rem; } .excerpt-block { padding: 2rem 1.5rem; } .categories-grid { grid-template-columns: 1fr; } .world-stats { grid-template-columns: repeat(3,1fr); } .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; } footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; } }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .page-hero { padding: 7rem 1.5rem 3rem; } .page-body { padding: 3rem 1.5rem; } .excerpt-block { padding: 2rem 1.5rem; } .categories-grid { grid-template-columns: 1fr; } .world-stats { grid-template-columns: repeat(3,1fr); } .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; } footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; } .research-panel-inner { grid-template-columns: 1fr !important; } }
   </style>
 </head>
 <body>
@@ -321,6 +321,57 @@
       <div style="margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border);">
         <div style="font-size: 0.62rem; color: var(--sand-dk); letter-spacing: 0.08em; text-transform: uppercase;">Defining Event</div>
         <div style="font-size: 0.75rem; color: var(--sand-dk); margin-top: 0.3rem; font-style: italic;">The War of Reunification · The Survivors begins</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 2rem;">
+    <p class="section-label">Research & Analysis</p>
+    <h2 class="section-title">Academic Work</h2>
+  </div>
+
+  <div style="border: 1px solid var(--border); background: var(--cream); margin-bottom: 5rem; overflow: hidden;">
+    <div style="background: var(--char); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div style="font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sand); margin-bottom: 0.5rem;">MKTG 4342 · Digital Marketing Analytics · Nov 2025</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 700; color: var(--white); line-height: 1.2;">MLB Expansion to Montreal<br><span style="font-style:italic;font-weight:400;color:rgba(232,213,183,0.75);">Market Viability Report</span></div>
+      </div>
+      <div style="display: flex; align-items: center; background: rgba(196,168,130,0.12); border: 1px solid rgba(196,168,130,0.2); padding: 0.45rem 1rem;">
+        <span style="font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sand);">Team of 6 · St. Edward's University</span>
+      </div>
+    </div>
+    <div class="research-panel-inner" style="padding: 2.5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
+      <div>
+        <p style="font-size: 0.88rem; line-height: 1.9; color: var(--txt2); margin-bottom: 1.5rem;">A data-driven feasibility study examining whether Major League Baseball should award an expansion franchise to Montreal, Quebec. The project combines comparative market analytics, B2B sponsorship mapping, consumer persona development, and digital presence analysis to build a holistic business case for a new franchise in Canada's second-largest city.</p>
+        <p style="font-size: 0.88rem; line-height: 1.9; color: var(--txt2); margin-bottom: 2rem;">Key contributions included constructing a digital gap analysis benchmarking Montreal's current sports market (~150K aggregate social followers) against the established Toronto Blue Jays ecosystem (4.2M+), developing the primary B2C persona "Emile/Emily Tremblay," and mapping a five-partner B2B sponsorship matrix targeting Bell Canada, Air Canada, EY, Dollarama, and RBC.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+          <span style="font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;">Market Research</span>
+          <span style="font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;">Comparative Analytics</span>
+          <span style="font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;">Persona Development</span>
+          <span style="font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;">B2B Sponsorship</span>
+          <span style="font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--sand-dk); border: 1px solid rgba(196,168,130,0.35); padding: 0.2rem 0.55rem;">Sports Marketing</span>
+        </div>
+      </div>
+      <div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+          <div style="background: var(--white); padding: 1.2rem;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--sand-dk);">4.3M</div>
+            <div style="font-size: 0.6rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem;">MTL Metro Pop.</div>
+          </div>
+          <div style="background: var(--white); padding: 1.2rem;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--sand-dk);">28×</div>
+            <div style="font-size: 0.6rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem;">Social Gap vs TOR</div>
+          </div>
+          <div style="background: var(--white); padding: 1.2rem;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--sand-dk);">5</div>
+            <div style="font-size: 0.6rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem;">B2B Partners Mapped</div>
+          </div>
+          <div style="background: var(--char2); padding: 1.2rem;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--sand);">MLB</div>
+            <div style="font-size: 0.6rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.15rem;">Expansion Target</div>
+          </div>
+        </div>
+        <div style="font-size: 0.72rem; color: var(--txt3); line-height: 1.7; font-style: italic;">Comparative market analytics · November 30, 2025</div>
       </div>
     </div>
   </div>

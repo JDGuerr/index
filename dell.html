@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dell x FIXER PR — JD Guerrero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --red: #9E1B32; --red-lt: #BC2240;
+      --sand: #C4A882; --sand-lt: #E8D5B7; --sand-dk: #9C7E52;
+      --white: #FFFFFF; --cream: #F4F1EC; --cream-dk: #EAE5DC;
+      --char: #26201A; --char2: #302820;
+      --txt: #1A1917; --txt2: #4A4540; --txt3: #8A857D;
+      --border: rgba(196,168,130,0.22);
+      --f-display: 'Cormorant Garamond', serif;
+      --f-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--f-body); background: var(--white); color: var(--txt); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--char); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--f-display); font-size: 1.4rem; font-weight: 700; color: var(--txt); letter-spacing: -0.02em; text-decoration: none; }
+    .nav-logo span { color: var(--red); }
+    .back-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--txt2);
+      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--red); }
+    .back-link::before { content: '←'; font-size: 0.9rem; }
+
+    /* HERO */
+    .proj-hero {
+      min-height: 65vh; display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 8rem 5rem 4rem;
+      background: var(--char); position: relative; overflow: hidden;
+    }
+    .proj-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 40%, rgba(158,27,50,0.1) 0%, transparent 60%);
+    }
+    .proj-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(196,168,130,0.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+    .hero-collab {
+      position: relative;
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-collab-badge {
+      font-family: var(--f-body); font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      background: var(--red); color: #fff;
+      padding: 0.28rem 0.7rem; border-radius: 100px;
+    }
+    .hero-collab-x {
+      font-family: var(--f-display); font-size: 1.1rem; color: rgba(196,168,130,0.5);
+    }
+    .hero-collab-client {
+      font-family: var(--f-body); font-size: 0.72rem; font-weight: 600;
+      color: rgba(196,168,130,0.7); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.1rem; position: relative; }
+    .proj-tag {
+      font-family: var(--f-body); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sand-lt); border: 1px solid rgba(232,213,183,0.25); padding: 0.2rem 0.6rem;
+      font-weight: 500; border-radius: 100px;
+    }
+    .proj-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700;
+      color: var(--white); line-height: 1.0; letter-spacing: -0.025em;
+      max-width: 760px; position: relative;
+    }
+    .proj-title em { color: var(--red); font-style: normal; }
+    .proj-subtitle {
+      font-family: var(--f-display);
+      font-size: 1.1rem; color: rgba(196,168,130,0.6);
+      margin-top: 0.75rem; position: relative; font-style: italic; font-weight: 400;
+    }
+
+    /* BODY */
+    .proj-body { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-block { margin-bottom: 4.5rem; }
+    .block-label {
+      font-family: var(--f-body); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.65rem; font-weight: 500;
+    }
+    .block-title {
+      font-family: var(--f-display); font-size: 1.9rem;
+      font-weight: 700; color: var(--txt); margin-bottom: 1.25rem; line-height: 1.15;
+      letter-spacing: -0.015em;
+    }
+    .block-text {
+      font-family: var(--f-body); font-size: 0.95rem; line-height: 1.9; color: var(--txt2);
+      margin-bottom: 1rem; font-weight: 300;
+    }
+
+    /* META ROW */
+    .meta-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--border); border: 1px solid var(--border);
+      margin-bottom: 4.5rem;
+    }
+    .meta-cell { background: var(--cream); padding: 1.5rem; }
+    .meta-label {
+      font-family: var(--f-body); font-size: 0.58rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--txt3); margin-bottom: 0.35rem; font-weight: 500;
+    }
+    .meta-value { font-family: var(--f-display); font-size: 1.05rem; font-weight: 600; color: var(--txt); }
+
+    /* CONTEXT CALLOUT */
+    .context-callout {
+      border-left: 3px solid var(--red);
+      background: var(--cream);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2rem;
+    }
+    .context-callout p {
+      font-family: var(--f-body); font-size: 0.9rem; color: var(--txt2);
+      line-height: 1.85; font-weight: 300;
+    }
+    .context-callout strong { font-weight: 600; color: var(--txt); }
+
+    /* BULLET LIST */
+    .contrib-list { list-style: none; }
+    .contrib-list li {
+      font-family: var(--f-body); font-size: 0.92rem; line-height: 1.85; color: var(--txt2);
+      padding: 1rem 0 1rem 1.4rem; position: relative;
+      border-bottom: 1px solid var(--border); font-weight: 300;
+    }
+    .contrib-list li:first-child { border-top: 1px solid var(--border); }
+    .contrib-list li::before { content: '—'; position: absolute; left: 0; color: var(--red); opacity: 0.6; }
+    .contrib-list li strong { font-weight: 600; color: var(--txt); }
+
+    /* TWO-COL GRID */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.5rem; }
+    .concept-card {
+      border: 1px solid var(--border); padding: 1.75rem;
+      background: var(--white); position: relative;
+    }
+    .concept-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--red); transform: scaleX(0);
+      transform-origin: left; transition: transform 0.3s ease;
+    }
+    .concept-card:hover::before { transform: scaleX(1); }
+    .concept-num {
+      font-family: var(--f-display); font-size: 2.2rem; font-weight: 300;
+      color: rgba(158,27,50,0.15); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .concept-title {
+      font-family: var(--f-display); font-size: 1.1rem; font-weight: 600;
+      color: var(--txt); margin-bottom: 0.5rem; line-height: 1.2;
+    }
+    .concept-desc {
+      font-family: var(--f-body); font-size: 0.82rem; color: var(--txt3);
+      line-height: 1.75; font-weight: 300;
+    }
+
+    /* SWOT GRID */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .swot-cell { background: var(--cream); padding: 1.5rem; }
+    .swot-cell.dark { background: var(--char); }
+    .swot-letter {
+      font-family: var(--f-display); font-size: 2.8rem; font-weight: 700;
+      line-height: 1; margin-bottom: 0.5rem;
+    }
+    .swot-cell:nth-child(1) .swot-letter,
+    .swot-cell:nth-child(3) .swot-letter { color: var(--red); }
+    .swot-cell:nth-child(2) .swot-letter,
+    .swot-cell:nth-child(4) .swot-letter { color: var(--sand); }
+    .swot-head {
+      font-family: var(--f-body); font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; font-weight: 600; margin-bottom: 0.85rem;
+    }
+    .swot-cell:nth-child(1) .swot-head,
+    .swot-cell:nth-child(3) .swot-head { color: var(--txt2); }
+    .swot-cell.dark .swot-head { color: rgba(196,168,130,0.6); }
+    .swot-list { list-style: none; }
+    .swot-list li {
+      font-family: var(--f-body); font-size: 0.82rem; line-height: 1.8;
+      padding-left: 1rem; position: relative; font-weight: 300; margin-bottom: 0.25rem;
+    }
+    .swot-list li::before { content: '–'; position: absolute; left: 0; opacity: 0.5; }
+    .swot-cell:nth-child(1) .swot-list li,
+    .swot-cell:nth-child(3) .swot-list li { color: var(--txt2); }
+    .swot-cell.dark .swot-list li { color: rgba(196,168,130,0.72); }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 1.5rem; }
+    .stat-cell { background: var(--white); padding: 1.75rem; text-align: center; border: 1px solid var(--border); }
+    .stat-n {
+      font-family: var(--f-display); font-size: 2.4rem; font-weight: 700;
+      color: var(--red); line-height: 1; margin-bottom: 0.4rem;
+    }
+    .stat-l { font-family: var(--f-body); font-size: 0.72rem; color: var(--txt3); line-height: 1.5; font-weight: 400; }
+
+    /* TIMELINE */
+    .timeline-table { width: 100%; border-collapse: collapse; font-family: var(--f-body); }
+    .timeline-table th {
+      font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--red); font-weight: 600; text-align: left;
+      padding: 0.75rem 1rem; border-bottom: 2px solid var(--red); background: var(--cream);
+    }
+    .timeline-table td {
+      font-size: 0.84rem; color: var(--txt2); padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border); font-weight: 300; line-height: 1.6;
+    }
+    .timeline-table tr:hover td { background: var(--cream); }
+    .platform-tag {
+      display: inline-block; font-size: 0.55rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.12rem 0.45rem; border-radius: 100px;
+    }
+    .pt-ig { background: rgba(158,27,50,0.1); color: var(--red); }
+    .pt-fb { background: rgba(196,168,130,0.15); color: var(--sand-dk); }
+
+    /* SLOGAN BLOCK */
+    .slogan-block {
+      background: var(--char); padding: 3rem;
+      text-align: center; margin: 2rem 0;
+      position: relative; overflow: hidden;
+    }
+    .slogan-block::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(158,27,50,0.1), transparent);
+    }
+    .slogan-eyebrow {
+      font-family: var(--f-body); font-size: 0.58rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 1rem;
+      font-weight: 500; position: relative;
+    }
+    .slogan-text {
+      font-family: var(--f-display); font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 600; color: var(--white); letter-spacing: -0.02em;
+      line-height: 1.2; position: relative;
+    }
+    .slogan-text em { color: var(--red); font-style: italic; }
+
+    /* FOOTER NAV */
+    .proj-footer-nav {
+      background: var(--char); padding: 3rem 5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .pfn-label {
+      font-family: var(--f-body); font-size: 0.58rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--txt3); margin-bottom: 0.4rem; font-weight: 500;
+    }
+    .pfn-link {
+      font-family: var(--f-display); font-size: 1.2rem;
+      color: var(--white); text-decoration: none; transition: color 0.2s; font-weight: 600;
+    }
+    .pfn-link:hover { color: var(--sand); }
+    .pfn-back {
+      padding: 0.85rem 2rem; background: transparent; color: var(--sand-lt);
+      border: 1px solid rgba(232,213,183,0.25); font-family: var(--f-body);
+      font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; border-radius: 100px;
+      transition: all 0.25s;
+    }
+    .pfn-back:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+    footer {
+      background: var(--char); border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    .ftxt { font-family: var(--f-body); font-size: 0.7rem; color: var(--txt3); font-weight: 300; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .proj-hero { padding: 7rem 1.5rem 3rem; }
+      .proj-body { padding: 3rem 1.5rem; }
+      .meta-row { grid-template-columns: 1fr 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .swot-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr; }
+      .proj-footer-nav { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      footer { padding: 1rem 1.5rem; flex-direction: column; gap: 0.3rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">JD<span>.</span></a>
+  <a href="index.html#portfolio" class="back-link">Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="proj-hero">
+  <div class="hero-collab">
+    <span class="hero-collab-badge">FIXER PR</span>
+    <span class="hero-collab-x">×</span>
+    <span class="hero-collab-client">Dell Technologies</span>
+  </div>
+  <div class="proj-tags">
+    <span class="proj-tag">B2B Marketing</span>
+    <span class="proj-tag">Campaign Strategy</span>
+    <span class="proj-tag">PR Planning</span>
+    <span class="proj-tag">AI Products</span>
+    <span class="proj-tag">Creative Brief</span>
+  </div>
+  <h1 class="proj-title">Dell <em>×</em> FIXER PR<br>AI Marketing Campaign</h1>
+  <p class="proj-subtitle">Integrated B2B communication strategy for Dell Technologies' AI product line</p>
+</section>
+
+<!-- BODY -->
+<div class="proj-body">
+
+  <!-- META -->
+  <div class="meta-row">
+    <div class="meta-cell">
+      <div class="meta-label">Context</div>
+      <div class="meta-value">University Partnership</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Agency</div>
+      <div class="meta-value">FIXER PR</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Client</div>
+      <div class="meta-value">Dell Technologies</div>
+    </div>
+    <div class="meta-cell">
+      <div class="meta-label">Focus</div>
+      <div class="meta-value">B2B AI Outreach</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section-block">
+    <p class="block-label">Overview</p>
+    <h2 class="block-title">Demystifying AI for enterprise audiences</h2>
+    <div class="context-callout">
+      <p><strong>FIXER PR</strong> is a student-led integrated communication agency operating through a Dell university partnership program. Our team was tasked with developing a full B2B marketing and PR campaign to position Dell's AI product line to medium and large organizations — addressing the gap between AI's potential and its adoption rate in the enterprise market.</p>
+    </div>
+    <p class="block-text">Dell Technologies wanted to reach decision-makers at mid-to-large organizations who were curious about AI but lacked the clarity, confidence, or internal expertise to begin adoption. Our campaign goal was to demystify Dell's AI solutions — communicating their accessibility, adaptability, and long-term business value through a research-driven, human-centered strategy.</p>
+    <p class="block-text">The campaign was built around a single insight: most businesses aren't avoiding AI out of disinterest — they're avoiding it out of confusion. Our strategy positioned Dell not just as a technology vendor but as a trusted guide through digital transformation.</p>
+  </div>
+
+  <!-- CAMPAIGN SLOGAN -->
+  <div class="slogan-block">
+    <div class="slogan-eyebrow">Campaign Platform</div>
+    <div class="slogan-text"><em>"AI That Fits All"</em> — Your Business, Your Rules,<br>All At Your Fingertips.</div>
+  </div>
+
+  <!-- MARKET RESEARCH -->
+  <div class="section-block">
+    <p class="block-label">Research Foundation</p>
+    <h2 class="block-title">The numbers driving the strategy</h2>
+    <p class="block-text">Our creative brief was grounded in enterprise AI adoption data. The research revealed a market ready to move — but held back by communication gaps, not capability gaps.</p>
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="stat-n">16%</div>
+        <div class="stat-l">of organizations using AI in at least one business function</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n">13.4%</div>
+        <div class="stat-l">regularly using generative AI across operations</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n">12.8%</div>
+        <div class="stat-l">of employees expect generative AI to boost efficiency</div>
+      </div>
+    </div>
+    <p class="block-text" style="margin-top:0.5rem;">With only 11.3% of organizations in active AI production and 8.2% citing data privacy as a barrier, our campaign positioned Dell as the answer to both hesitation and confusion — reliable, compliant, and accessible.</p>
+  </div>
+
+  <!-- SWOT -->
+  <div class="section-block">
+    <p class="block-label">Strategic Analysis</p>
+    <h2 class="block-title">SWOT — Dell AI in the enterprise market</h2>
+    <p class="block-text" style="margin-bottom:1.5rem;">Our analysis revealed that Dell's AI has high potential for adoption but remains misunderstood among key B2B audiences.</p>
+    <div class="swot-grid">
+      <div class="swot-cell">
+        <div class="swot-letter">S</div>
+        <div class="swot-head">Strengths</div>
+        <ul class="swot-list">
+          <li>Reputation for reliability and security — positions Dell AI as safe and compliant</li>
+          <li>Fully customizable AI solutions adaptable to individual organizational needs</li>
+          <li>Diverse portfolio of industry partnerships (cybersecurity, software)</li>
+        </ul>
+      </div>
+      <div class="swot-cell dark">
+        <div class="swot-letter">W</div>
+        <div class="swot-head">Weaknesses</div>
+        <ul class="swot-list">
+          <li>AI remains confusing and intimidating — education is a major adoption hurdle</li>
+          <li>Offerings may read as too technical or corporate without simplified messaging</li>
+          <li>Mixed messaging across channels could reduce campaign clarity</li>
+        </ul>
+      </div>
+      <div class="swot-cell dark">
+        <div class="swot-letter">O</div>
+        <div class="swot-head">Opportunities</div>
+        <ul class="swot-list">
+          <li>Companies want AI but don't know where to start — Dell can offer setup, consultation, training</li>
+          <li>Growing pressure for sustainable AI creates "Green AI" leadership opportunity</li>
+          <li>Direct AI integration into Dell hardware for seamless enterprise deployment</li>
+        </ul>
+      </div>
+      <div class="swot-cell">
+        <div class="swot-letter">T</div>
+        <div class="swot-head">Threats</div>
+        <ul class="swot-list">
+          <li>Google Gemini, Microsoft, Lenovo, HP competing aggressively in enterprise AI</li>
+          <li>Risk of falling behind on chip design and AI accelerator advancements</li>
+          <li>Emerging AI privacy/security legislation could increase hardware costs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY CONTRIBUTIONS -->
+  <div class="section-block">
+    <p class="block-label">Deliverables</p>
+    <h2 class="block-title">What FIXER PR built</h2>
+    <ul class="contrib-list">
+      <li><strong>Full situational analysis</strong> — market positioning across personalized services, technology integration, customer approach, and unique selling proposition for Dell AI Factory.</li>
+      <li><strong>SWOT analysis</strong> — comprehensive strengths, weaknesses, opportunities, and threats framework specific to Dell's B2B AI market position.</li>
+      <li><strong>Creative brief</strong> — campaign tone (Clear. Educational. Approachable. Human-centered.), target audience profile, technology integration messaging, and brand mandatories.</li>
+      <li><strong>Four creative concepts</strong> — B2B print adverts, Myth vs. Fact educational seminars, Demystify AI video series, and a website redesign concept for Dell AI Solutions.</li>
+      <li><strong>Advertising executions</strong> — two LinkedIn advert formats and two full storyboards ("Bridging the AI Gap" and "The Trust Factor") with tone, sound, scene, and tagline direction.</li>
+      <li><strong>PR strategy and plan</strong> — social media advertising framework, informative press release templates, webinar/online event programming, and B2B budget allocation strategy.</li>
+      <li><strong>Weekly content calendar</strong> — five-day posting schedule across Instagram and Facebook with content type, posting time, format, and topic for each placement.</li>
+    </ul>
+  </div>
+
+  <!-- CREATIVE CONCEPTS -->
+  <div class="section-block">
+    <p class="block-label">Creative Concepts</p>
+    <h2 class="block-title">Four executions, one unified message</h2>
+    <p class="block-text" style="margin-bottom:1.5rem;">Each concept was designed to address a different moment in the B2B buyer journey — from awareness to education to trust-building.</p>
+    <div class="two-col">
+      <div class="concept-card">
+        <div class="concept-num">01</div>
+        <div class="concept-title">B2B AI Print Adverts</div>
+        <div class="concept-desc">Retro-modern print advertising targeting LinkedIn and B2B trade media. Two visual directions: bold typography-driven ("AI built for business? We got you.") and a heritage-nostalgia approach using vintage Dell computer aesthetics to contrast past and future.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-num">02</div>
+        <div class="concept-title">Myth vs. Fact Seminars</div>
+        <div class="concept-desc">Live and digital educational seminars directly addressing the most common misconceptions blocking enterprise AI adoption — reframing Dell AI as accessible, not intimidating. Designed to generate qualified B2B leads.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-num">03</div>
+        <div class="concept-title">Demystify AI Video Series</div>
+        <div class="concept-desc">A branded content series presenting AI adoption through real business scenarios. Tone: enlightening and empowering. Visual style: split-screen confusion-to-clarity. Light ambient synth scoring to signal progress without technical intimidation.</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-num">04</div>
+        <div class="concept-title">Website Redesign Concept</div>
+        <div class="concept-desc">A redesigned Dell AI Solutions landing page built around three editorial pillars: "Why Dell AI?", "What We Deliver," and a human-centered visual hierarchy that educates first and sells second. Focused on reducing cognitive load for non-technical decision-makers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT CALENDAR -->
+  <div class="section-block">
+    <p class="block-label">Execution Plan</p>
+    <h2 class="block-title">Weekly content calendar</h2>
+    <p class="block-text" style="margin-bottom:1.5rem;">A structured five-day publishing cadence across Facebook and Instagram, mixing educational formats with trust-building content.</p>
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Time</th>
+          <th>Platform</th>
+          <th>Format</th>
+          <th>Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td>10:00 AM</td>
+          <td><span class="platform-tag pt-ig">Instagram</span></td>
+          <td>Carousel / Educational</td>
+          <td>"What is AI?" — simple icons + graphics</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td>10:30 AM</td>
+          <td><span class="platform-tag pt-ig">Instagram</span></td>
+          <td>Trust &amp; Innovation / Static</td>
+          <td>"Why Choose Dell?" — reliability, scalability, innovation</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td>10:00 AM</td>
+          <td><span class="platform-tag pt-ig">Instagram</span></td>
+          <td>Myth vs. Fact</td>
+          <td>"AI Doesn't Replace People — It Empowers Them"</td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td>1:00 PM</td>
+          <td><span class="platform-tag pt-fb">Facebook</span></td>
+          <td>Informational / Graphic</td>
+          <td>"What is Dell's AI?" — explain Dell's AI tools and services</td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td>1:30 PM</td>
+          <td><span class="platform-tag pt-fb">Facebook</span></td>
+          <td>Infographic / Static</td>
+          <td>"3 Ways AI Boosts Business Growth" — data-driven tips</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PR STRATEGY -->
+  <div class="section-block">
+    <p class="block-label">PR Strategy</p>
+    <h2 class="block-title">Channels, tools, and approach</h2>
+    <ul class="contrib-list">
+      <li><strong>Social media advertising</strong> — targeted B2B ads on LinkedIn, Facebook, and Instagram using platform metrics to track interaction and optimize spend.</li>
+      <li><strong>Informative press releases</strong> — drafted to both announce campaign milestones and educate business journalists on Dell's AI capabilities — bridging PR and content marketing.</li>
+      <li><strong>Webinars and online events</strong> — live programming designed to move prospects from awareness to consideration, with Q&A formats that directly address adoption barriers.</li>
+      <li><strong>Creative and design infrastructure</strong> — brand guidelines, post templates, and presentation frameworks built in Adobe Creative Cloud and Canva for consistent execution at scale.</li>
+      <li><strong>Budget strategy</strong> — cost-efficient B2B outlet targeting to maximize traffic and qualified lead generation within marketing budget constraints.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- FOOTER NAV -->
+<div class="proj-footer-nav">
+  <div>
+    <div class="pfn-label">Previous Project</div>
+    <a href="finas.html" class="pfn-link">← Fina's Cooking &amp; Catering</a>
+  </div>
+  <a href="index.html#portfolio" class="pfn-back">All Projects</a>
+  <div>
+    <div class="pfn-label">First Project</div>
+    <a href="zaffirini.html" class="pfn-link">Senator Zaffirini →</a>
+  </div>
+</div>
+
+<footer>
+  <span class="ftxt">© 2026 Juan Diego M. Guerrero</span>
+  <span class="ftxt">Austin, TX</span>
+</footer>
+
+</body>
+</html>
